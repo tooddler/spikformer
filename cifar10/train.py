@@ -78,7 +78,7 @@ parser.add_argument('--model', default='spikformer', type=str, metavar='MODEL',
                     help='Name of model to train (default: "countception"')
 parser.add_argument('-T', '--time-step', type=int, default=4, metavar='time',
                     help='simulation time step of spiking neuron (default: 4)')
-parser.add_argument('-L', '--layer', type=int, default=4, metavar='layer',
+parser.add_argument('-L', '--layer', type=int, default=1, metavar='layer',
                     help='model layer (default: 4)')
 parser.add_argument('--num-classes', type=int, default=None, metavar='N',
                     help='number of label classes (Model default if None)')
@@ -96,8 +96,8 @@ parser.add_argument('--patch-size', type=int, default=None, metavar='N',
 parser.add_argument('--mlp-ratio', type=int, default=None, metavar='N',
                     help='expand ration of embedding dimension in MLP block')
 # Dataset / Model parameters
-parser.add_argument('-data-dir', metavar='DIR',default="/home/zhou/Compact-Transformers-main/cifar-10-python/",
-                    help='path to dataset')
+parser.add_argument('-data-dir', metavar='DIR', default='/home/hipeson/xiaotao/spikformer/cifar-10-python/',
+                    help='path to dataset  E:/Desktop/spiking-transformer-master/cifar10/cifar-10-batches-py/')
 parser.add_argument('--dataset', '-d', metavar='NAME', default='torch/cifar10',
                     help='dataset type (default: ImageFolder/ImageTar if empty)')
 parser.add_argument('--train-split', metavar='NAME', default='train',
@@ -494,9 +494,8 @@ def main():
     dataset_train = create_dataset(
         args.dataset,
         root=args.data_dir, split=args.train_split, is_training=True,
-        batch_size=args.batch_size, repeats=args.epoch_repeats)
-    dataset_eval = create_dataset(
-        args.dataset, root=args.data_dir, split=args.val_split, is_training=False, batch_size=args.batch_size)
+        batch_size=args.batch_size, repeats=args.epoch_repeats, download=True)
+    dataset_eval = create_dataset(args.dataset, root=args.data_dir, split=args.val_split, is_training=False, batch_size=args.batch_size, download=True)
 
     # setup mixup / cutmix
     collate_fn = None
