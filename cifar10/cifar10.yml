@@ -1,4 +1,4 @@
-epochs: 300
+epochs: 100
 time_step: 4
 layer: 1
 dim: 384
@@ -48,3 +48,4 @@ warmup_lr: 0.00001
 opt: adamw
 smoothing: 0.1
 workers: 1
+resume: /home/hipeson/xiaotao/spikformer/cifar10/output/train/spikformer-fp32/bn_absorb/model_bn_absorb.pth.tar

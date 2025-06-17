@@ -1,3 +1,4 @@
 *.pyc
 cifar-10-python
 *.log
+output

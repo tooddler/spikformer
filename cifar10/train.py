@@ -366,7 +366,7 @@ def main():
 
     random_seed(args.seed, args.rank)
     model = create_model(
-        'spikformer',
+        'spikformer_Q',
         pretrained=False,
         drop_rate=0.,
         drop_path_rate=0.,
@@ -598,6 +598,8 @@ def main():
             checkpoint_dir=output_dir, recovery_dir=output_dir, decreasing=decreasing, max_history=args.checkpoint_hist)
         with open(os.path.join(output_dir, 'args.yaml'), 'w') as f:
             f.write(args_text)
+
+    # import pdb; pdb.set_trace()
 
     try:
         for epoch in range(start_epoch, num_epochs):
