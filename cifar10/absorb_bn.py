@@ -65,16 +65,18 @@ def main():
         img_size_h=32, img_size_w=32,
         patch_size=4, embed_dims=384, num_heads=12, mlp_ratios=4,
         in_channels=3, num_classes=10, qkv_bias=False,
-        depths=4, sr_ratios=1,
+        depths=1, sr_ratios=1,
         T=4)
 
-    checkpoint_path = 'model_best.pth.tar'
-    checkpoint = torch.load(checkpoint_path, map_location='cpu')
+    checkpoint_path = '/home/hipeson/xiaotao/spikformer/cifar10/output/train/spikformer-fp32/model_best.pth.tar'
+    checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
     new_state_dict = OrderedDict()
     for k, v in checkpoint['state_dict'].items():
         name = k[7:] if k.startswith('module') else k
         new_state_dict[name] = v
     model.load_state_dict(new_state_dict)
+
+    # import pdb; pdb.set_trace()
 
     for m in model.modules():
         debug_dot = m
@@ -126,7 +128,7 @@ def main():
     checkpoint['state_dict'] = model.state_dict()
     checkpoint['epoch'] = 0
     checkpoint.pop('optimizer')
-    torch.save(checkpoint, 'model_bn_absort.pth.tar')
+    torch.save(checkpoint, '/home/hipeson/xiaotao/spikformer/cifar10/output/train/spikformer-fp32/bn_absorb/model_bn_absorb.pth.tar')
 
 if __name__ == '__main__':
     main()
